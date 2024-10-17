@@ -69,10 +69,9 @@ resource "coder_agent" "main" {
 
     # Start code-server in the background.
     /tmp/code-server/bin/code-server --auth none --port 13337 >/tmp/code-server.log 2>&1 &
-    mkdir -p /home/mtdev/docker
-    sudo dockerd --data-root /home/mtdev/docker --iptables=false --ip6tables=false --bridge=none --host=unix:///var/run/docker.sock >/tmp/docker-server.log 2>&1 &
     git clone $GIT_URL
     sudo echo "$DOCKER_PASSWORD" | sudo docker login  -u $DOCKER_USERNAME --password-stdin
+    sudo dockerd --data-root /home/mtdev/docker --iptables=false --ip6tables=false --bridge=none --host=unix:///var/run/docker.sock
   EOT
 
   env = {
